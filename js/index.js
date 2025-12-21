@@ -11,9 +11,10 @@ document.addEventListener("click", (e) => {
     }
   }
 });
-// aside
+// aside links
 const dataSection = document.querySelectorAll("[data-section]");
 const appSections = document.querySelectorAll(".app-section");
+// aside links active
 dataSection.forEach((btn) => {
   btn.addEventListener("click", () => {
     const sectionId = btn.dataset.section;
@@ -35,6 +36,8 @@ dataSection.forEach((btn) => {
     // highlight clicked button
     btn.classList.add("bg-blue-500/10", "text-blue-400");
     btn.classList.remove("hover:bg-slate-800");
-    sidebar.style.transform = "translate(-100%)";
+    if (window.innerWidth < 1024) {
+      sidebar.style.transform = "translate(-100%)";
+    }
   });
 });
