@@ -139,6 +139,8 @@ async function planetsData() {
   planetsList = data.bodies;
   displayplanetsData();
   displayPlanetsComparison();
+  console.log(planetsList);
+  
 }
 function displayplanetsData() {
   // select all planet cards
@@ -287,7 +289,7 @@ function displayPlanetsComparison() {
       </td>
       <td class="px-4 md:px-6 py-3 md:py-4 whitespace-nowrap">
         <span class="px-2 py-1 rounded text-xs bg-orange-500/50 text-orange-200">${
-          planet.bodyType
+          planet.type
         }</span>
       </td>
     `;
