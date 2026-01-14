@@ -1,50 +1,50 @@
 // sidebar-toggle
-const sidebarToggle = document.querySelector("#sidebar-toggle");
-const sidebar = document.querySelector("#sidebar");
-sidebarToggle.addEventListener("click", () => {
-  sidebar.style.transform = "translate(0)";
+const sidebarToggle = document.querySelector('#sidebar-toggle');
+const sidebar = document.querySelector('#sidebar');
+sidebarToggle.addEventListener('click', () => {
+  sidebar.style.transform = 'translate(0)';
 });
-document.addEventListener("click", (e) => {
+document.addEventListener('click', (e) => {
   if (window.innerWidth < 1024) {
     if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
-      sidebar.style.transform = "translate(-100%)";
+      sidebar.style.transform = 'translate(-100%)';
     }
   }
 });
 // aside links
-const dataSection = document.querySelectorAll("[data-section]");
-const appSections = document.querySelectorAll(".app-section");
+const dataSection = document.querySelectorAll('[data-section]');
+const appSections = document.querySelectorAll('.app-section');
 // show earth Card first
 let earthShown = false;
 // aside links active
 dataSection.forEach((btn) => {
-  btn.addEventListener("click", () => {
+  btn.addEventListener('click', () => {
     const sectionId = btn.dataset.section;
     // hide all sections
     appSections.forEach((section) => {
-      section.classList.add("hidden");
+      section.classList.add('hidden');
     });
     // reset all buttons styles
     dataSection.forEach((button) => {
       if (button === btn) {
-        button.classList.add("bg-blue-500/10", "text-blue-400");
-        button.classList.remove("hover:bg-slate-800");
+        button.classList.add('bg-blue-500/10', 'text-blue-400');
+        button.classList.remove('hover:bg-slate-800');
       } else {
-        button.classList.remove("bg-blue-500/10", "text-blue-400");
-        button.classList.add("text-slate-300", "hover:bg-slate-800");
+        button.classList.remove('bg-blue-500/10', 'text-blue-400');
+        button.classList.add('text-slate-300', 'hover:bg-slate-800');
       }
     });
     // show selected section
-    document.getElementById(sectionId).classList.remove("hidden");
+    document.getElementById(sectionId).classList.remove('hidden');
     // highlight clicked button
-    btn.classList.add("bg-blue-500/10", "text-blue-400");
-    btn.classList.remove("hover:bg-slate-800");
+    btn.classList.add('bg-blue-500/10', 'text-blue-400');
+    btn.classList.remove('hover:bg-slate-800');
     if (window.innerWidth < 1024) {
-      sidebar.style.transform = "translate(-100%)";
-      btn.classList.add("bg-blue-500/10", "text-blue-400");
+      sidebar.style.transform = 'translate(-100%)';
+      btn.classList.add('bg-blue-500/10', 'text-blue-400');
     }
     // show earth Card first
-    if (sectionId === "planets" && !earthShown) {
+    if (sectionId === 'planets' && !earthShown) {
       const earthCard = document.querySelector('[data-planet-id="earth"]');
       if (earthCard) earthCard.click();
       earthShown = true;
@@ -56,7 +56,7 @@ let dataList = [];
 todayData();
 async function todayData() {
   let res = await fetch(
-    `https://api.nasa.gov/planetary/apod?api_key=JFTaRZ5dTe4tqhyA5pJRAbxGV51aSN7WA8ajdsdq`
+    `https://api.nasa.gov/planetary/apod?api_key=JFTaRZ5dTe4tqhyA5pJRAbxGV51aSN7WA8ajdsdq`,
   );
   let data = await res.json();
   dataList = data;
@@ -65,15 +65,15 @@ async function todayData() {
 // Display today's APOD data
 function displayTodayData() {
   // Select DOM elements
-  const apodDate = document.querySelector("#apod-date");
-  const dateWrapper = document.querySelector(".date-input-wrapper");
-  const imageContainer = document.querySelector("#apod-image-container");
-  const explanation = document.querySelector("#apod-explanation");
-  const copyright = document.querySelector("#apod-copyright");
-  const dateDetail = document.querySelector("#apod-date-detail");
-  const dateInfo = document.querySelector("#apod-date-info");
-  const title = document.querySelector("#apod-title");
-  const mediaType = document.querySelector("#apod-media-type");
+  const apodDate = document.querySelector('#apod-date');
+  const dateWrapper = document.querySelector('.date-input-wrapper');
+  const imageContainer = document.querySelector('#apod-image-container');
+  const explanation = document.querySelector('#apod-explanation');
+  const copyright = document.querySelector('#apod-copyright');
+  const dateDetail = document.querySelector('#apod-date-detail');
+  const dateInfo = document.querySelector('#apod-date-info');
+  const title = document.querySelector('#apod-title');
+  const mediaType = document.querySelector('#apod-media-type');
   // main date title
   apodDate.innerHTML = `Astronomy Picture of the Day - ${dataList.date}`;
   // Date input
@@ -102,7 +102,7 @@ function displayTodayData() {
   // Explanation text
   explanation.textContent = dataList.explanation;
   // Copyright
-  copyright.innerHTML = `&copy; ${dataList.copyright || "NASA"}`;
+  copyright.innerHTML = `&copy; ${dataList.copyright || 'NASA'}`;
   // Date details
   dateDetail.innerHTML = `<i class="far fa-calendar mr-2"></i>${dataList.date}`;
   dateInfo.textContent = dataList.date;
@@ -111,33 +111,33 @@ function displayTodayData() {
   // Media type (image / video)
   mediaType.textContent = dataList.media_type;
   // Open full resolution image
-  const openLinkImage = document.querySelector("#openLinkImage");
-  openLinkImage.addEventListener("click", () => {
+  const openLinkImage = document.querySelector('#openLinkImage');
+  openLinkImage.addEventListener('click', () => {
     // Open image
-    window.open(dataList.hdurl || dataList.url, "_blank");
+    window.open(dataList.hdurl || dataList.url, '_blank');
   });
 }
 // API launches
 let launchesList = [];
 launchesData();
 async function launchesData() {
-  let res = await fetch(
-    `https://ll.thespacedevs.com/2.3.0/launches/upcoming/?limit=10`
-  );
+  let res = await fetch(`https://ll.thespacedevs.com/2.3.0/launches/upcoming/?limit=10`);
   let data = await res.json();
   launchesList = data.results;
+  console.log(launchesList);
+
   displaylaunchesData();
 }
 function displaylaunchesData() {
   // master card
-  const featuredLaunch = document.querySelector("#featured-launch");
+  const featuredLaunch = document.querySelector('#featured-launch');
   const launch = launchesList[0];
   // Launch Date
   const formattedDate = new Date(launch.window_start).toDateString();
-  const timeUTC = new Date(launch.window_start).toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZone: "UTC",
+  const timeUTC = new Date(launch.window_start).toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'UTC',
   });
   // Days Until Launch
   const launchDate = new Date(launch.window_start);
@@ -250,15 +250,15 @@ function displaylaunchesData() {
           </div>
   `;
   // // All Upcoming Launches
-  const launchesGrid = document.querySelector("#launches-grid");
-  launchesGrid.innerHTML = "";
+  const launchesGrid = document.querySelector('#launches-grid');
+  launchesGrid.innerHTML = '';
   for (let i = 1; i < launchesList.length; i++) {
     const launch = launchesList[i];
     const formattedDate = new Date(launch.window_start).toDateString();
-    const timeUTC = new Date(launch.window_start).toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-      timeZone: "UTC",
+    const timeUTC = new Date(launch.window_start).toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZone: 'UTC',
     });
     const card = `
     <div class="bg-slate-800/50 border border-slate-700 rounded-2xl overflow-hidden hover:border-blue-500/30 transition-all group cursor-pointer">
@@ -295,15 +295,11 @@ function displaylaunchesData() {
           </div>
           <div class="flex items-center gap-2 text-sm">
             <i class="fas fa-rocket text-slate-500 w-4"></i>
-            <span class="text-slate-300">${
-              launch.rocket.configuration.name
-            }</span>
+            <span class="text-slate-300">${launch.rocket.configuration.name}</span>
           </div>
           <div class="flex items-center gap-2 text-sm">
             <i class="fas fa-map-marker-alt text-slate-500 w-4"></i>
-            <span class="text-slate-300 line-clamp-1">${
-              launch.pad.location.name
-            }</span>
+            <span class="text-slate-300 line-clamp-1">${launch.pad.location.name}</span>
           </div>
         </div>
         <div class="flex items-center gap-2 pt-4 border-t border-slate-700">
@@ -324,42 +320,46 @@ function displaylaunchesData() {
 let planetsList = [];
 planetsData();
 async function planetsData() {
-  let res = await fetch(
-    `https://solar-system-opendata-proxy.vercel.app/api/planets`
-  );
-  let data = await res.json();
-  planetsList = data.bodies;
-  displayplanetsData();
-  displayPlanetsComparison();
+  try {
+    const res = await fetch(`https://solar-system-opendata-proxy.vercel.app/api/planets`);
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const data = await res.json();
+    planetsList = data.bodies;
+    console.log(planetsList);
+    displayplanetsData();
+    displayPlanetsComparison();
+  } catch (err) {
+    console.error('Failed to fetch planets data:', err);
+    planetsList = [];
+  }
 }
+
 function displayplanetsData() {
   // select all planet cards
-  const planetCards = document.querySelectorAll(".planet-card");
+  const planetCards = document.querySelectorAll('.planet-card');
   // big image
-  const planetDetailImage = document.getElementById("planet-detail-image");
-  const planetDetailName = document.getElementById("planet-detail-name");
+  const planetDetailImage = document.getElementById('planet-detail-image');
+  const planetDetailName = document.getElementById('planet-detail-name');
   // details
-  const planetDescription = document.querySelector(
-    "#planet-detail-description"
-  );
-  const planetDistance = document.querySelector("#planet-distance");
-  const planetRadius = document.querySelector("#planet-radius");
-  const planetMass = document.querySelector("#planet-mass");
-  const planetDensity = document.querySelector("#planet-density");
-  const planetOrbitalPeriod = document.querySelector("#planet-orbital-period");
-  const planetRotation = document.querySelector("#planet-rotation");
-  const planetMoons = document.querySelector("#planet-moons");
-  const planetGravity = document.querySelector("#planet-gravity");
+  const planetDescription = document.querySelector('#planet-detail-description');
+  const planetDistance = document.querySelector('#planet-distance');
+  const planetRadius = document.querySelector('#planet-radius');
+  const planetMass = document.querySelector('#planet-mass');
+  const planetDensity = document.querySelector('#planet-density');
+  const planetOrbitalPeriod = document.querySelector('#planet-orbital-period');
+  const planetRotation = document.querySelector('#planet-rotation');
+  const planetMoons = document.querySelector('#planet-moons');
+  const planetGravity = document.querySelector('#planet-gravity');
   // discovery info
-  const planetDiscoverer = document.querySelector("#planet-discoverer");
-  const planetDiscoveryDate = document.querySelector("#planet-discovery-date");
-  const planetBodyType = document.querySelector("#planet-body-type");
-  const planetVolume = document.querySelector("#planet-volume");
+  const planetDiscoverer = document.querySelector('#planet-discoverer');
+  const planetDiscoveryDate = document.querySelector('#planet-discovery-date');
+  const planetBodyType = document.querySelector('#planet-body-type');
+  const planetVolume = document.querySelector('#planet-volume');
   planetCards.forEach((card) => {
-    card.addEventListener("click", () => {
+    card.addEventListener('click', () => {
       const planetId = card.dataset.planetId;
       const selectedPlanet = planetsList.find(
-        (planet) => planet.englishName.toLowerCase() === planetId.toLowerCase()
+        (planet) => planet.englishName.toLowerCase() === planetId.toLowerCase(),
       );
       if (!selectedPlanet) return;
       // image & name
@@ -368,52 +368,42 @@ function displayplanetsData() {
       planetDetailName.textContent = selectedPlanet.englishName;
       // details with approximation
       planetDescription.textContent = selectedPlanet.description;
-      planetDistance.textContent = `${(
-        selectedPlanet.semimajorAxis / 1000000
-      ).toFixed(0)}M km`;
+      planetDistance.textContent = `${(selectedPlanet.semimajorAxis / 1000000).toFixed(0)}M km`;
       planetRadius.textContent = `${Math.round(selectedPlanet.meanRadius)} km`;
-      planetMass.textContent = `${selectedPlanet.mass.massValue.toFixed(
-        2
-      )} × 10^${selectedPlanet.mass.massExponent} kg`;
+      planetMass.textContent = `${selectedPlanet.mass.massValue.toFixed(2)} × 10^${
+        selectedPlanet.mass.massExponent
+      } kg`;
       planetDensity.textContent = `${selectedPlanet.density.toFixed(2)} g/cm³`;
-      planetOrbitalPeriod.textContent = `${selectedPlanet.sideralOrbit.toFixed(
-        0
-      )} days`;
-      planetRotation.textContent = `${selectedPlanet.sideralRotation.toFixed(
-        1
-      )} hours`;
-      planetMoons.textContent = selectedPlanet.moons
-        ? selectedPlanet.moons.length
-        : 0;
+      planetOrbitalPeriod.textContent = `${selectedPlanet.sideralOrbit.toFixed(0)} days`;
+      planetRotation.textContent = `${selectedPlanet.sideralRotation.toFixed(1)} hours`;
+      planetMoons.textContent = selectedPlanet.moons ? selectedPlanet.moons.length : 0;
       planetGravity.textContent = `${selectedPlanet.gravity.toFixed(1)} m/s²`;
       // Discovery Info
-      planetDiscoverer.textContent =
-        selectedPlanet.discoveredBy || "Known since antiquity";
-      planetDiscoveryDate.textContent =
-        selectedPlanet.discoveryDate || "Ancient";
+      planetDiscoverer.textContent = selectedPlanet.discoveredBy || 'Known since antiquity';
+      planetDiscoveryDate.textContent = selectedPlanet.discoveryDate || 'Ancient';
       planetBodyType.textContent = selectedPlanet.bodyType;
-      planetVolume.textContent = `${selectedPlanet.vol.volValue.toFixed(
-        2
-      )} × 10^${selectedPlanet.vol.volExponent} km³`;
+      planetVolume.textContent = `${selectedPlanet.vol.volValue.toFixed(2)} × 10^${
+        selectedPlanet.vol.volExponent
+      } km³`;
       // planet Facts
-      const planetFacts = document.querySelector("#planet-facts");
+      const planetFacts = document.querySelector('#planet-facts');
       planetFacts.innerHTML = `
         <li class="flex items-start">
           <i class="fas fa-check text-green-400 mt-1 mr-2"></i>
           <span class="text-slate-300"><strong>Mass:</strong> ${selectedPlanet.mass.massValue.toFixed(
-            2
+            2,
           )} × 10^${selectedPlanet.mass.massExponent} kg</span>
         </li>
         <li class="flex items-start">
           <i class="fas fa-check text-green-400 mt-1 mr-2"></i>
           <span class="text-slate-300"><strong>Surface gravity:</strong> ${selectedPlanet.gravity.toFixed(
-            1
+            1,
           )} m/s²</span>
         </li>
         <li class="flex items-start">
           <i class="fas fa-check text-green-400 mt-1 mr-2"></i>
           <span class="text-slate-300"><strong>Density:</strong> ${selectedPlanet.density.toFixed(
-            2
+            2,
           )} g/cm³</span>
         </li>
         <li class="flex items-start">
@@ -423,21 +413,15 @@ function displayplanetsData() {
           }°</span>
         </li>
       `;
-      const planetAphelion = document.querySelector("#planet-aphelion");
-      const planetEccentricity = document.querySelector("#planet-eccentricity");
-      const planetInclination = document.querySelector("#planet-inclination");
-      const planetAxialTilt = document.querySelector("#planet-axial-tilt");
-      const planetTemp = document.querySelector("#planet-temp");
-      const planetEscape = document.querySelector("#planet-escape");
-      planetAphelion.textContent = `${selectedPlanet.perihelion.toFixed(
-        0
-      )}M km`;
-      planetEccentricity.textContent = `${selectedPlanet.aphelion.toFixed(
-        0
-      )}M km`;
-      planetInclination.textContent = `${selectedPlanet.inclination.toFixed(
-        1
-      )}°`;
+      const planetAphelion = document.querySelector('#planet-aphelion');
+      const planetEccentricity = document.querySelector('#planet-eccentricity');
+      const planetInclination = document.querySelector('#planet-inclination');
+      const planetAxialTilt = document.querySelector('#planet-axial-tilt');
+      const planetTemp = document.querySelector('#planet-temp');
+      const planetEscape = document.querySelector('#planet-escape');
+      planetAphelion.textContent = `${selectedPlanet.perihelion.toFixed(0)}M km`;
+      planetEccentricity.textContent = `${selectedPlanet.aphelion.toFixed(0)}M km`;
+      planetInclination.textContent = `${selectedPlanet.inclination.toFixed(1)}°`;
       planetAxialTilt.textContent = `${selectedPlanet.axialTilt}°`;
       planetTemp.textContent = `${selectedPlanet.avgTemp.toFixed(0)}°C`;
       planetEscape.textContent = `${selectedPlanet.escape.toFixed(1)} km/s`;
@@ -445,21 +429,19 @@ function displayplanetsData() {
   });
 }
 function displayPlanetsComparison() {
-  const tbody = document.getElementById("planet-comparison-tbody");
-  tbody.innerHTML = "";
+  const tbody = document.getElementById('planet-comparison-tbody');
+  tbody.innerHTML = '';
   planetsList.forEach((planet) => {
     const orbitalYears = (planet.sideralOrbit / 365.25).toFixed(2);
-    const tr = document.createElement("tr");
-    tr.className = "hover:bg-slate-800/30 transition-colors bg-blue-500/5";
+    const tr = document.createElement('tr');
+    tr.className = 'hover:bg-slate-800/30 transition-colors bg-blue-500/5';
     tr.innerHTML = `
       <td class="px-4 md:px-6 py-3 md:py-4 sticky left-0 bg-slate-800 z-10">
         <div class="flex items-center space-x-3">
           <div class="w-6 h-6 rounded-full" style="background:${getPlanetColor(
-            planet.englishName
+            planet.englishName,
           )}"></div>
-          <span class="font-semibold whitespace-nowrap">${
-            planet.englishName
-          }</span>
+          <span class="font-semibold whitespace-nowrap">${planet.englishName}</span>
         </div>
       </td>
       <td class="px-4 md:px-6 py-3 md:py-4 text-slate-300 text-sm md:text-base whitespace-nowrap">
@@ -469,7 +451,7 @@ function displayPlanetsComparison() {
         ${Math.round(planet.meanRadius * 2)}
       </td>
       <td class="px-4 md:px-6 py-3 md:py-4 text-slate-300 text-sm md:text-base whitespace-nowrap">
-        ${planet.mass?.massValue.toFixed(2) ?? "-"}
+        ${planet.mass?.massValue.toFixed(2) ?? '-'}
       </td>
       <td class="px-4 md:px-6 py-3 md:py-4 text-slate-300 text-sm md:text-base whitespace-nowrap">
         ${orbitalYears} years
@@ -488,14 +470,14 @@ function displayPlanetsComparison() {
 }
 function getPlanetColor(name) {
   const colors = {
-    Mercury: "#eab308",
-    Venus: "#f97316",
-    Earth: "#3b82f6",
-    Mars: "#ef4444",
-    Jupiter: "#fb923c",
-    Saturn: "#facc15",
-    Uranus: "#06b6d4",
-    Neptune: "#2563eb",
+    Mercury: '#eab308',
+    Venus: '#f97316',
+    Earth: '#3b82f6',
+    Mars: '#ef4444',
+    Jupiter: '#fb923c',
+    Saturn: '#facc15',
+    Uranus: '#06b6d4',
+    Neptune: '#2563eb',
   };
-  return colors[name] || "#94a3b8";
+  return colors[name] || '#94a3b8';
 }
